@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excercise 01</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title">My personal library</h1>
+      <button id="new-book" class="btn btn-primary">New Book</button>
+    </header>
+    <main class="main">
+      <article class="book">
+        <h2 class="book__header">Harry Potter and the Philosopher's Stone</h2>
+        <div class="book__content">
+          <p>Written J. K. Rowling</p>
+          <p>Number of pages: 202</p>
+          <p>
+            Mark as read
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </p>
+        </div>
+      </article>
+    </main>
+    <section class="new-book-form">
+      <header class="new-book-form-title"><h2>Add a new book</h2></header>
+      <div class="new-book-information">
+        <label for="title">Title</label>
+        <input id="title" class="input" type="text" />
+        <label for="author">Author</label>
+        <input id="author" class="input" type="text" />
+        <label for="pages">Pages</label>
+        <input id="pages" class="input" type="number" />
+        Mark as read
+        <label class="switch">
+          <input id="pages-read" type="checkbox" />
+          <span class="slider form-slider round"></span>
+        </label>
+      </div>
+      <footer class="new-book-footer">
+        <button id="add" class="btn btn-secondary">Add</button>
+        <button id="cancel" class="btn btn-secondary">Cancel</button>
+      </footer>
+    </section>
+    <script src="app.js"></script>
+  </body>
+</html>

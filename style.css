@@ -55,7 +55,9 @@ body {
   color: inherit;
   font-size: 1.7rem;
   width: 40rem;
-  padding: 0.7rem;
+  max-width: 100%;
+  max-height: 150%;
+  padding: 0 0.7rem;
   box-shadow: 2px 2px 8px 1px black;
   border-radius: 0.1rem;
   position: absolute;
@@ -64,13 +66,22 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-@media (max-width: 659px) {
+@media (max-height: 321px) {
   .new-book-form {
-    width: 30rem;
+    font-size: 1.45rem;
+  }
+  .new-book-form-title {
+    font-size: 1.3rem;
+  }
+}
+@media (min-height: 350px) {
+  .new-book-form {
+    font-size: 1.6524rem;
   }
 }
 .new-book-form-title {
   text-align: center;
+  margin: 2rem 0;
 }
 .new-book-form-title h2 {
   margin: 0.5rem 0;
@@ -79,14 +90,11 @@ body {
 .new-book-information {
   display: grid;
   gap: 8px;
+  max-width: 100%;
+  max-height: 100%;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-areas:
-    "tag title"
-    "tag title"
-    "tag title"
-    "tag title"
-    "btn btn";
+  grid-template-rows: repeat(4, 1fr);
+
   justify-content: center;
   align-items: center;
 }
@@ -94,6 +102,7 @@ body {
 .new-book-footer {
   display: flex;
   justify-content: space-evenly;
+  margin: 1rem 0;
 }
 .input {
   height: 70%;

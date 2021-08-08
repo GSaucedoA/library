@@ -50,7 +50,7 @@ function populateHTML(book) {
   label.appendChild(span);
 
   const checkBoxContainer = document.createElement("p");
-  checkBoxContainer.textContent = "Mark as Read ";
+  checkBoxContainer.textContent = "Mark as read ";
   checkBoxContainer.appendChild(label);
 
   const div = document.createElement("div");

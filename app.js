@@ -14,6 +14,37 @@ function cancel() {
   document.querySelector("#author").value = "";
   document.querySelector("#pages").value = "";
   document.querySelector("#pages-read").checked = false;
+  editIndex = undefined;
+}
+
+function removeBook() {
+  myLibrary.splice(this.parentNode.parentNode.dataset.index, 1);
+  populateHTML(true);
+}
+
+function editBook() {
+  newBookForm.style.display = "block";
+  editIndex = this.parentNode.parentNode.dataset.index;
+  const book = myLibrary[editIndex];
+  document.querySelector("#title").value = book.title;
+  document.querySelector("#author").value = book.author.author;
+  document.querySelector("#pages").value = book.pages;
+  document.querySelector("#pages-read").checked = book.read;
+}
+
+function toggleRead() {
+  const index = this.parentNode.parentNode.parentNode.parentNode.dataset.index;
+  const read = myLibrary[index].read;
+  myLibrary[index].read = !read;
+}
+
+function populateHTML(bol) {
+  if (bol) {
+    main.textContent = "";
+  }
+  for (let i = 0; i < myLibrary.length; i++) {
+    addBookToHTML(myLibrary[i], i);
+  }
 }
 
 function addBookToLibrary() {
@@ -21,14 +52,22 @@ function addBookToLibrary() {
   const author = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
   const read = document.querySelector("#pages-read").checked;
+  if (editIndex == undefined) {
+    const newBook = new Book(title, author, pages, read);
+    myLibrary.push(newBook);
+    addBookToHTML(newBook, myLibrary.length - 1);
+  } else {
+    myLibrary[editIndex].title = title;
+    myLibrary[editIndex].author = author;
+    myLibrary[editIndex].pages = pages;
+    myLibrary[editIndex].read = read;
+    populateHTML(true);
+  }
 
-  const newBook = new Book(title, author, pages, read);
-  myLibrary.push(newBook);
-  populateHTML(newBook);
   cancel();
 }
 
-function populateHTML(book) {
+function addBookToHTML(book, i) {
   /*book__content*/
   const author = document.createElement("p");
   author.textContent = `Written by ${book.author}`;
@@ -38,6 +77,7 @@ function populateHTML(book) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.checked = book.read;
+  checkbox.addEventListener("click", toggleRead);
 
   const span = document.createElement("span");
   span.classList.add("slider");
@@ -70,20 +110,24 @@ function populateHTML(book) {
   const btn_primary = document.createElement("button");
   btn_primary.textContent = "Edit";
   btn_primary.classList.add("book__footer--btn-primary");
+  btn_primary.addEventListener("click", editBook);
+
   const btn_secondary = document.createElement("button");
   btn_secondary.textContent = "Remove";
   btn_secondary.classList.add("book__footer--btn-secondary");
+  btn_secondary.addEventListener("click", removeBook);
 
   book__footer.appendChild(btn_primary);
   book__footer.appendChild(btn_secondary);
   /*end book__footer */
-  const article = document.createElement("article");
-  article.classList.add("book");
-  article.appendChild(book__header);
-  article.appendChild(book__content);
-  article.appendChild(book__footer);
+  const bookContainer = document.createElement("article");
+  bookContainer.classList.add("book");
+  bookContainer.appendChild(book__header);
+  bookContainer.appendChild(book__content);
+  bookContainer.appendChild(book__footer);
+  bookContainer.dataset.index = i;
 
-  main.appendChild(article);
+  main.appendChild(bookContainer);
 }
 
 let myLibrary = [];
@@ -115,7 +159,6 @@ myLibrary.push(
 );
 
 const newBookButton = document.querySelector("#new-book");
-console.log(myLibrary);
 newBookButton.addEventListener("click", function () {
   newBookForm.style.display = "block";
   document.querySelector("#title").focus();
@@ -128,5 +171,6 @@ const add = document.querySelector("#add");
 add.addEventListener("click", addBookToLibrary);
 
 const main = document.querySelector(".main");
+let editIndex = undefined;
 
-myLibrary.forEach(populateHTML);
+populateHTML();

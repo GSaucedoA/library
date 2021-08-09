@@ -113,17 +113,21 @@ body {
 /*End Form*/
 /*Individual books*/
 .book {
-  max-width: 20rem;
+  width: 20rem;
+  height: 0%;
   box-shadow: 0px 0px 4px 2px lightgray;
   text-align: center;
   border-radius: 0.3rem;
 }
 .book__header {
   margin: 0;
+  padding: 0.2rem;
   width: 100%;
   background-color: var(--form-background);
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  display: block;
+  line-height: 1;
 }
 .book__content {
   background-color: var(--btn-secondary);
@@ -134,6 +138,35 @@ body {
 .book__content p {
   margin: 8px;
 }
+
+.book__footer {
+  background-color: var(--form-background);
+  height: 1.6rem;
+}
+.book__footer--btn-primary,
+.book__footer--btn-secondary {
+  cursor: pointer;
+  width: 50%;
+  height: 100%;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.book__footer--btn-primary:hover,
+.book__footer--btn-secondary:hover {
+  opacity: 0.8;
+}
+.book__footer--btn-primary {
+  border-right: 0.5px solid lightgray;
+}
+.book__footer--btn-secondary {
+  border-left: 0.5px solid lightgray;
+}
+
+/*
+end single books
+*/
 
 .main {
   display: grid;

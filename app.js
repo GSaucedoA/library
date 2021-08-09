@@ -16,9 +16,12 @@ function cancel() {
   document.querySelector("#pages-read").checked = false;
   editIndex = undefined;
 }
-
+function updateLocalStorage() {
+  localStorage.setItem("db", JSON.stringify(myLibrary));
+}
 function removeBook() {
   myLibrary.splice(this.parentNode.parentNode.dataset.index, 1);
+  updateLocalStorage();
   populateHTML(true);
 }
 
@@ -36,9 +39,13 @@ function toggleRead() {
   const index = this.parentNode.parentNode.parentNode.parentNode.dataset.index;
   const read = myLibrary[index].read;
   myLibrary[index].read = !read;
+  updateLocalStorage();
 }
 
 function populateHTML(bol) {
+  if (localStorage.getItem("db")) {
+    myLibrary = JSON.parse(localStorage.getItem("db"));
+  }
   if (bol) {
     main.textContent = "";
   }
@@ -63,7 +70,7 @@ function addBookToLibrary() {
     myLibrary[editIndex].read = read;
     populateHTML(true);
   }
-
+  updateLocalStorage();
   cancel();
 }
 
@@ -157,7 +164,6 @@ myLibrary.push(
     true
   )
 );
-
 const newBookButton = document.querySelector("#new-book");
 newBookButton.addEventListener("click", function () {
   newBookForm.style.display = "block";

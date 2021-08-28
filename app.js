@@ -30,7 +30,7 @@ function editBook() {
   editIndex = this.parentNode.parentNode.dataset.index;
   const book = myLibrary[editIndex];
   document.querySelector("#title").value = book.title;
-  document.querySelector("#author").value = book.author.author;
+  document.querySelector("#author").value = book.author;
   document.querySelector("#pages").value = book.pages;
   document.querySelector("#pages-read").checked = book.read;
 }
@@ -63,14 +63,16 @@ function addBookToLibrary() {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     addBookToHTML(newBook, myLibrary.length - 1);
+    updateLocalStorage();
   } else {
+    console.log(editIndex);
     myLibrary[editIndex].title = title;
     myLibrary[editIndex].author = author;
     myLibrary[editIndex].pages = pages;
     myLibrary[editIndex].read = read;
+    updateLocalStorage();
     populateHTML(true);
   }
-  updateLocalStorage();
   cancel();
 }
 

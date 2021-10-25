@@ -14,7 +14,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   color: var(--font-color);
 }
 /*Header*/
@@ -114,19 +114,19 @@ body {
 /*Individual books*/
 .book {
   width: 20rem;
-  height: 0%;
   box-shadow: 0px 0px 4px 2px lightgray;
   text-align: center;
   border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
 }
 .book__header {
   margin: 0;
-  padding: 0.2rem;
+  padding: 0.3rem;
   width: 100%;
   background-color: var(--form-background);
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
-  display: block;
   line-height: 1;
 }
 .book__content {
@@ -134,11 +134,15 @@ body {
   color: white;
   padding: 0.5rem;
   font-size: 1.3rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .book__content p {
   margin: 8px;
 }
-
 .book__footer {
   background-color: var(--form-background);
   height: 1.6rem;
@@ -169,11 +173,11 @@ end single books
 */
 
 .main {
-  display: grid;
-  padding: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
 }
 
 /* The switch - the box around the slider */
@@ -209,7 +213,7 @@ end single books
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 17px;
   width: 17px;
   left: 01px;

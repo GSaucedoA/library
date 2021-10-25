@@ -26,7 +26,8 @@ function updateLocalStorage() {
 function removeBook(index) {
   myLibrary.splice(index, 1);
   updateLocalStorage();
-  populateHTML(true);
+  const book = document.querySelector(`[data-index="${index}"]`);
+  book.parentElement.removeChild(book);
 }
 
 function editBook(index) {
@@ -45,13 +46,11 @@ function toggleRead(index) {
   updateLocalStorage();
 }
 
-function populateHTML(bol) {
+function populateHTML() {
   if (localStorage.getItem('db')) {
     myLibrary = JSON.parse(localStorage.getItem('db'));
   }
-  if (bol) {
-    main.textContent = '';
-  }
+
   for (let i = 0; i < myLibrary.length; i++) {
     addBookToHTML(myLibrary[i], i);
   }
@@ -66,15 +65,14 @@ function addBookToLibrary() {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
     addBookToHTML(newBook, myLibrary.length - 1);
-    updateLocalStorage();
   } else {
     myLibrary[editIndex].title = title;
     myLibrary[editIndex].author = author;
     myLibrary[editIndex].pages = pages;
     myLibrary[editIndex].read = read;
-    updateLocalStorage();
-    populateHTML(true);
+    editHTMLBook(editIndex, myLibrary[editIndex]);
   }
+  updateLocalStorage();
   cancel();
 }
 
@@ -106,6 +104,13 @@ function bookFromObject({ title, author, pages, read }, index) {
 
 function addBookToHTML(book, i) {
   main.appendChild(bookFromObject(book, i));
+}
+
+function editHTMLBook(index, book) {
+  document.querySelector(`[data-index="${index}"]`).innerHTML = bookFromObject(
+    book,
+    index
+  ).innerHTML;
 }
 
 let myLibrary = [];

@@ -18,9 +18,11 @@ function cancel() {
   document.querySelector('#pages-read').checked = false;
   editIndex = undefined;
 }
+
 function updateLocalStorage() {
   localStorage.setItem('db', JSON.stringify(myLibrary));
 }
+
 function removeBook(index) {
   myLibrary.splice(index, 1);
   updateLocalStorage();
@@ -37,8 +39,7 @@ function editBook(index) {
   document.querySelector('#pages-read').checked = book.read;
 }
 
-function toggleRead() {
-  const index = this.parentNode.parentNode.parentNode.parentNode.dataset.index;
+function toggleRead(index) {
   const read = myLibrary[index].read;
   myLibrary[index].read = !read;
   updateLocalStorage();
@@ -153,7 +154,9 @@ main.addEventListener('click', function (e) {
     const index = e.target.parentNode.parentNode.dataset.index;
     e.target.textContent == 'Edit' ? editBook(index) : removeBook(index);
   } else if (e.target.tagName == 'INPUT') {
-    toggleRead();
+    toggleRead(
+      e.target.parentNode.parentNode.parentNode.parentNode.dataset.index
+    );
   }
 });
 let editIndex = undefined;
